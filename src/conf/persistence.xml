@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="JPAPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>br.entidade.FatAcessos</class>
+    <class>br.entidade.FatBanco</class>
+    <class>br.entidade.FatCaixa</class>
+    <class>br.entidade.FatConvenio</class>
+    <class>br.entidade.FatDevedores</class>
+    <class>br.entidade.FatEntrada</class>
+    <class>br.entidade.FatFatura</class>
+    <class>br.entidade.FatFormapagamento</class>
+    <class>br.entidade.FatGlosa</class>
+    <class>br.entidade.FatGrupoUsuarios</class>
+    <class>br.entidade.FatHistorico</class>
+    <class>br.entidade.FatImposto</class>
+    <class>br.entidade.FatMascaraConvenio</class>
+    <class>br.entidade.FatNota</class>
+    <class>br.entidade.FatPerda</class>
+    <class>br.entidade.FatProducao</class>
+    <class>br.entidade.FatRecurso</class>
+    <class>br.entidade.FatResto</class>
+    <class>br.entidade.FatSaida</class>
+    <class>br.entidade.FatUsuarios</class>
+    <class>br.entidade.FatVersao</class>
+    <class>br.entidade.SftCtrlAcao</class>
+    <class>br.entidade.SftCtrlHistorico</class>
+    <class>br.entidade.SftInputAten</class>
+    <class>br.entidade.SftInputNcon</class>
+    <class>br.entidade.SftInputStat</class>
+    <class>br.entidade.SftInputUnid</class>
+    <class>br.entidade.SftOutputCort</class>
+    <class>br.entidade.SftOutputDesc</class>
+    <class>br.entidade.SftOutputGlos</class>
+    <class>br.entidade.SftOutputInco</class>
+    <class>br.entidade.SftOutputPart</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/faturamento?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
+    </properties>
+  </persistence-unit>
+</persistence>

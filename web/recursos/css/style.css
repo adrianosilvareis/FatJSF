@@ -1,0 +1,165 @@
+*{
+    padding: 0;
+    font-family: cursive, sans-serif;
+}
+/*margim de todo o site*/
+.conteudo{
+    margin-left: 10%;
+    margin-right: 10%;
+    clear: both;
+}
+.cont{
+    clear: both;
+}
+/*imagem de logo*/
+#top #logo img{
+    float: right;
+    width: 324px;
+    height: 100px;
+}
+
+.pesquisa{
+    border-bottom-color: white;
+    margin-right: 10%;
+    margin-left: 10%;
+    text-decoration: none;
+    font-family: sans-serif;
+    clear: both;
+}
+/*inicio do menu*/
+/*barra de menu*/
+nav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: Teal;
+    float: left;
+    width: 100%;
+    height: 40px;
+    border-radius: 15px;
+}
+/*blocos de botoes*/
+nav ul li{
+    display: inline;
+}
+/*links de cada bloco*/
+nav ul li a{
+    padding: 5px 30px 5px 15px;
+    display: inline-block;
+    width: 60px;
+    font-family: arial;
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+}
+/*mouse hover de cada link*/
+nav ul li a:hover{
+    background-color: silver;
+    color: green;
+    border-bottom: 3px solid darkgreen;
+    border-radius: 15px;
+}
+#back{
+    padding: 5px 80px 5px 5px;
+    display: inline-block;
+    width: 60px;
+    font-family: arial;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    float: right;
+}
+/*fim do menu*/
+/*incio do rodape*/
+#footer{
+    background-color: DarkSlateGray;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    height: 10%;
+    margin: 0;
+}
+#autor img{
+    margin-left: 10%;
+    width: 162px;
+    height: 50px;
+    float: left;
+}
+#autor p{
+    float: left;
+    color: white;
+    font-family: sans-serif;
+    font-size: 12px;
+    padding-top: 25px;
+}
+#display{
+    float: right;
+    margin-right: 10%;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: gainsboro;
+    padding-top: 30px; 
+}
+/*fim do rodape*/
+
+/*incio de tabela*/
+td {
+    font-size: 10px;
+    text-align: center;
+}
+
+td:hover{
+    background-color: #666666;
+    color: #FFF;
+}
+
+tr:hover{
+    background-color: #C1CDC1;
+
+}
+/*filter*/
+.ui-datatable .ui-column-filter {
+    display: block;
+    width: 150px;
+    margin: auto;
+}
+
+/*head column*/
+.ui-filter-column{
+}
+/*cabeçalho*/
+.ui-datatable-header.ui-widget-header.ui-corner-top{
+    border: 1px solid #fff;
+    height: 45px;
+    color: #FFF;
+    font-family: sans-serif, arial;
+    font-size : 24px;
+}
+
+/*paginador numerico*/
+.ui-paginator-pages{
+    
+}
+
+/*paginado bloco*/
+.ui-widget-header{
+    background-color: DarkSlateGray;
+}
+.ui-state-default{
+    border: 1px solid #fff;
+    height: 30px;
+    background-color: Teal;
+    font-family: time new roman, sans-serif, arial;
+    color: #FFF;
+    font-size : 18px;
+}
+
+
+/*magim da tabela*/
+.ui-datatable{
+    margin: 0% 10% 10% 10%;
+    clear: both;
+}
+/*fim de tabela*/
+
