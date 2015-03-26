@@ -41,13 +41,19 @@ public class Business {
         return q.getResultList();
     }
     
-    public List<SftOutputInco> findPeriodo(String dataInicial, String dataFinal) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date d1 = format.parse(dataInicial);
-        Date d2 = format.parse(dataFinal);
+    private Date toDate(String data){
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            return format.parse(data);
+        } catch (ParseException ex) {
+            return null;
+        }
+    }
+    
+    public List<SftOutputInco> findPeriodo(String dataInicial, String dataFinal){
         TypedQuery<SftOutputInco> q = em.createNamedQuery("SftOutputInco.findPeriodo",SftOutputInco.class);
-        q.setParameter("inicial", d1);
-        q.setParameter("fim", d2);
+        q.setParameter("inicial", toDate(dataInicial));
+        q.setParameter("fim", toDate(dataFinal));
         return q.getResultList();
     }
 }

@@ -28,13 +28,9 @@ public class IncoBeans {
     }
     
     public void periodo(){
-        try {
-            list = Business.getInstance().findPeriodo(getDataInicial(), getDataFinal());
-            setDataInicial("");
-            setDataFinal("");
-        } catch (ParseException ex) {
-            list = new ArrayList<>();
-        }
+        list = Business.getInstance().findPeriodo(getDataInicial(), getDataFinal());
+        setDataInicial("");
+        setDataFinal("");
     }
     
     public void findMes() {
