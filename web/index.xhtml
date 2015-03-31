@@ -7,7 +7,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="conteudo">
-       
+        
         <p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="bar">
             <h:form id="pesquisa" > 
                 <p:panelGrid columns="5" >
@@ -100,37 +100,5 @@
             </p:dialog>
         </h:form>
     </ui:define>
-
-    <ui:define name="ranking">
-        <div class="ranking">
-            <p:dataTable value="#{ViewInco.list}" var="i" >
-                <f:facet name="header">
-                    Atendente
-                </f:facet>
-                <p:column>
-                    <h:outputLabel value="#{i.fkAten.atenUsUsaten}" />
-                </p:column>
-            </p:dataTable>
-        </div>
-        <div class="ranking">
-            <p:dataTable value="#{ViewInco.list}" var="i" >
-                <f:facet name="header">
-                    Unidade
-                </f:facet>
-                <p:column>
-                    <h:outputLabel value="#{i.fkUnid.unidNmNmunid}" />
-                </p:column>
-            </p:dataTable>
-        </div>
-        <div class="ranking">
-            <p:dataTable value="#{ViewInco.list}" var="i" >
-                <f:facet name="header">
-                    Convenio
-                </f:facet>
-                <p:column>
-                    <h:outputLabel value="#{i.fkConv.descricao}" />
-                </p:column>
-            </p:dataTable>
-        </div>
-    </ui:define>
+    
 </ui:composition>

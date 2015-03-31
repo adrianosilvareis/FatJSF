@@ -2,6 +2,7 @@ package br.entidade.beans;
     
 import br.entidade.SftOutputInco;
 import br.entidade.business.Business;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,8 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean(name = "ViewInco")
 @SessionScoped
-public class IncoBeans {
+public class IncoBeans implements Serializable{
+    private static final long serialVersionUID = 1L;
     
     @PostConstruct
     public void init() {
