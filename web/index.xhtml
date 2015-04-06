@@ -4,101 +4,208 @@
                 template="./template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <ui:define name="conteudo">
-        
-        <p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="bar">
-            <h:form id="pesquisa" > 
-                <p:panelGrid columns="5" >
-                    <p:outputLabel value="Date inicial: " />
-                    <p:inputMask value="#{ViewInco.dataInicial}" mask="99/99/9999"/>
-                    <p:outputLabel value="Date Final" />
-                    <p:inputMask value="#{ViewInco.dataFinal}" mask="99/99/9999"/>
-                    <p:commandButton update="@all" icon="ui-icon-search" title="Pesquisa" action="#{ViewInco.periodo()}"/>
-                </p:panelGrid>
-            </h:form>
-            <p:panelGrid columns="2" >
-                <p:outputLabel value="Pesquisar Inconsistencias do Mês: " />
-                <p:commandButton update=":form" icon="ui-icon-search" title="Mês" action="#{ViewInco.findMes()}"/>
-            </p:panelGrid>
-            <p:commandButton onclick="PF('bar').hide()" type="button" icon="ui-icon-close" />
-        </p:notificationBar>
-                
-        <div class="pesquisa">
-            <p:outputLabel value="Pesquisa Elaborada: " />
-            <p:commandButton onclick="PF('bar').show()" type="button" icon="ui-icon-search"/>
-        </div>
-        <h:form id="form">
-
-            <p:dataTable value="#{ViewInco.list}" var="i" paginator="true" rows="15" >
-                <f:facet name="header" >
-                    Inconsistencia Mês Atual
-                </f:facet>
-
-                <p:column headerText="OS" filterBy="#{i.incoOsNumos}" filterMatchMode="contains">
-                    <h:outputLabel value="#{i.incoOsNumos}" />
-                </p:column>
-
-                <p:column headerText="Cod Unidade" filterBy="#{i.fkUnid.unidCodCodigo}" filterMatchMode="exact">
-                    <h:outputLabel value="#{i.fkUnid.unidNmNmunid}" />
-                </p:column>
-
-                <p:column headerText="Atendente" filterBy="#{i.fkAten.atenUsUsaten}" filterMatchMode="contains">
-                    <h:outputLabel value="#{i.fkAten.atenUsUsaten}" />
-                </p:column>
-
-                <p:column headerText="Cod Convenio" filterBy="#{i.fkConv.codigo}" filterMatchMode="contains">
-                    <h:outputLabel value="#{i.fkConv.descricao}" />
-                </p:column>
-
-                <p:column headerText="Data">
-                    <h:outputText value="#{i.incoDtRegis}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:outputText>
-                </p:column>
-
-                <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":form:incoDetail" oncomplete="PF('incoDialog').show()" icon="ui-icon-search" title="View">
-                        <f:setPropertyActionListener value="#{i}" target="#{ViewInco.selecionado}" />
-                    </p:commandButton>
-                </p:column>
-            </p:dataTable>
-
-            <p:dialog header="Inconsistencia Info" widgetVar="incoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="incoDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty ViewInco.selecionado}" columnClasses="label,value">
-
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{ViewInco.selecionado.incoIdIdinco}" />
-
-                        <h:outputText value="OS" />
-                        <h:outputText value="#{ViewInco.selecionado.incoOsNumos}" />
-
-                        <h:outputText value="Unidade" />
-                        <h:outputText value="#{ViewInco.selecionado.fkUnid.unidNmNmunid}" />
-
-                        <h:outputText value="Atendente" />
-                        <h:outputText value="#{ViewInco.selecionado.fkAten.atenUsUsaten}" />
-
-                        <h:outputText value="Cod Convenio" />
-                        <h:outputText value="#{ViewInco.selecionado.fkConv.codigo}" />
-
-                        <h:outputText value="Convenio" />
-                        <h:outputText value="#{ViewInco.selecionado.fkConv.descricao}" />
-
-                        <h:outputText value="Não conformidade" />
-                        <h:outputText value="#{ViewInco.selecionado.fkNcon.nconNmNmncon}" />
-
-                        <h:outputText value="Status" />
-                        <h:outputText value="#{ViewInco.selecionado.fkStat.statusNmDescricao}" />
-
-                        <h:outputText value="Obs" />
-                        <h:outputText value="#{ViewInco.selecionado.incoObObsinco}" />
+        <div id="inconsistencia">
+            <p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="bar_inco">
+                <h:form id="pesquisa" > 
+                    <p:panelGrid columns="5" >
+                        <p:outputLabel value="Date inicial: " />
+                        <p:inputMask value="#{ViewInco.dataInicial}" mask="99/99/9999"/>
+                        <p:outputLabel value="Date Final" />
+                        <p:inputMask value="#{ViewInco.dataFinal}" mask="99/99/9999"/>
+                        <p:commandButton update="@all" icon="ui-icon-search" title="Pesquisa" action="#{ViewInco.findPeriodo()}"/>
                     </p:panelGrid>
-                </p:outputPanel>
-            </p:dialog>
-        </h:form>
+                </h:form>
+                <p:panelGrid columns="2" >
+                    <p:outputLabel value="Pesquisar Inconsistencias do Mês: " />
+                    <p:commandButton update=":form" icon="ui-icon-search" title="Mês" action="#{ViewInco.findMes()}"/>
+                </p:panelGrid>
+                <p:commandButton onclick="PF('bar_inco').hide()" type="button" icon="ui-icon-close" />
+            </p:notificationBar>
+
+            <div class="pesquisa">
+                <p:outputLabel value="Pesquisa Elaborada: " />
+                <p:commandButton onclick="PF('bar_inco').show()" type="button" icon="ui-icon-search"/>
+            </div>
+            <h:form id="form">
+
+                <p:dataTable value="#{ViewInco.list}" var="i" paginator="true" rows="10" rowsPerPageTemplate="5,10,15" rowIndexVar="teste">
+                    <f:facet name="header" >
+                        Inconsistencia Mês Atual
+                    </f:facet>
+
+                    <p:column style="width:32px;text-align: center">
+                        #{teste+1}
+                    </p:column>
+
+                    <p:column headerText="OS" filterBy="#{i.incoOsNumos}" filterMatchMode="contains">
+                        <h:outputLabel value="#{i.incoOsNumos}" />
+                    </p:column>
+
+                    <p:column headerText="Cod Unidade" filterBy="#{i.fkUnid.unidCodCodigo}" filterMatchMode="exact">
+                        <h:outputLabel value="#{i.fkUnid.unidNmNmunid}" />
+                    </p:column>
+
+                    <p:column headerText="Atendente" filterBy="#{i.fkAten.atenUsUsaten}" filterMatchMode="contains">
+                        <h:outputLabel value="#{i.fkAten.atenUsUsaten}" />
+                    </p:column>
+
+                    <p:column headerText="Cod Convenio" filterBy="#{i.fkConv.codigo}" filterMatchMode="contains" >
+                        <h:outputLabel value="#{i.fkConv.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Data">
+                        <h:outputText value="#{i.incoDtRegis}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton update=":form:incoDetail" oncomplete="PF('incoDialog').show()" icon="ui-icon-search" title="View">
+                            <f:setPropertyActionListener value="#{i}" target="#{ViewInco.selecionado}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog header="Inconsistencia Info" widgetVar="incoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="incoDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty ViewInco.selecionado}" columnClasses="label,value">
+
+                            <h:outputText value="Id:" />
+                            <h:outputText value="#{ViewInco.selecionado.incoIdIdinco}" />
+
+                            <h:outputText value="OS" />
+                            <h:outputText value="#{ViewInco.selecionado.incoOsNumos}" />
+
+                            <h:outputText value="Unidade" />
+                            <h:outputText value="#{ViewInco.selecionado.fkUnid.unidNmNmunid}" />
+
+                            <h:outputText value="Atendente" />
+                            <h:outputText value="#{ViewInco.selecionado.fkAten.atenUsUsaten}" />
+
+                            <h:outputText value="Cod Convenio" />
+                            <h:outputText value="#{ViewInco.selecionado.fkConv.codigo}" />
+
+                            <h:outputText value="Convenio" />
+                            <h:outputText value="#{ViewInco.selecionado.fkConv.descricao}" />
+
+                            <h:outputText value="Não conformidade" />
+                            <h:outputText value="#{ViewInco.selecionado.fkNcon.nconNmNmncon}" />
+
+                            <h:outputText value="Status" />
+                            <h:outputText value="#{ViewInco.selecionado.fkStat.statusNmDescricao}" />
+
+                            <h:outputText value="Obs" />
+                            <h:outputText value="#{ViewInco.selecionado.incoObObsinco}" />
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+        </div>
+
+        <div id="glosa">
+            <p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="bar_glos">
+                <h:form id="pesquisa_glos" > 
+                    <p:panelGrid columns="5" >
+                        <p:outputLabel value="Date inicial: " />
+                        <p:inputMask value="#{ViewGlos.dataInicial}" mask="99/99/9999"/>
+                        <p:outputLabel value="Date Final" />
+                        <p:inputMask value="#{ViewGlos.dataFinal}" mask="99/99/9999"/>
+                        <p:commandButton update=":form_glos,pesquisa_glos" icon="ui-icon-search" title="Pesquisa" action="#{ViewGlos.findPeriodo()}" />
+                    </p:panelGrid>
+                </h:form>
+                <p:panelGrid columns="2" >
+                    <p:outputLabel value="Pesquisar Glosas do Mês: " />
+                    <p:commandButton update=":form_glos" icon="ui-icon-search" title="Mês" action="#{ViewGlos.findMes()}"/>
+                </p:panelGrid>
+                <p:commandButton onclick="PF('bar_glos').hide()" type="button" icon="ui-icon-close" />
+            </p:notificationBar>
+
+            <div class="pesquisa">
+                <p:outputLabel value="Pesquisa Elaborada: " />
+                <p:commandButton onclick="PF('bar_glos').show()" type="button" icon="ui-icon-search"/>
+            </div>
+            <h:form id="form_glos">
+
+                <p:dataTable value="#{ViewGlos.list}" var="i" paginator="true" rows="10" rowsPerPageTemplate="5,10,15" rowIndexVar="teste">
+                    <f:facet name="header" >
+                        Glosa Mês Atual
+                    </f:facet>
+
+                    <p:column style="width:32px;text-align: center">
+                        #{teste+1}
+                    </p:column>
+
+                    <p:column headerText="OS" filterBy="#{i.glosOsNumos}" filterMatchMode="contains">
+                        <h:outputLabel value="#{i.glosOsNumos}" />
+                    </p:column>
+
+                    <p:column headerText="Cod Unidade" filterBy="#{i.fkUnid.unidCodCodigo}" filterMatchMode="exact">
+                        <h:outputLabel value="#{i.fkUnid.unidNmNmunid}" />
+                    </p:column>
+
+                    <p:column headerText="Atendente" filterBy="#{i.fkAten.atenUsUsaten}" filterMatchMode="contains">
+                        <h:outputLabel value="#{i.fkAten.atenUsUsaten}" />
+                    </p:column>
+
+                    <p:column headerText="Cod Convenio" filterBy="#{i.fkConv.codigo}" filterMatchMode="contains" >
+                        <h:outputLabel value="#{i.fkConv.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Data">
+                        <h:outputText value="#{i.glosDtRegis}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton update=":form_glos:glosDetail" oncomplete="PF('glosDialog').show()" icon="ui-icon-search" title="View">
+                            <f:setPropertyActionListener value="#{i}" target="#{ViewGlos.selecionado}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog header="Glosa Info" widgetVar="glosDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="glosDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty ViewGlos.selecionado}" columnClasses="label,value">
+
+                            <h:outputText value="Id:" />
+                            <h:outputText value="#{ViewGlos.selecionado.glosIdIdglos}" />
+
+                            <h:outputText value="OS" />
+                            <h:outputText value="#{ViewGlos.selecionado.glosOsNumos}" />
+                            
+                            <h:outputText value="Valor" />
+                            <h:outputText value="#{ViewGlos.selecionado.glosVlVlos}" />
+
+                            <h:outputText value="Unidade" />
+                            <h:outputText value="#{ViewGlos.selecionado.fkUnid.unidNmNmunid}" />
+
+                            <h:outputText value="Atendente" />
+                            <h:outputText value="#{ViewGlos.selecionado.fkAten.atenUsUsaten}" />
+
+                            <h:outputText value="Cod Convenio" />
+                            <h:outputText value="#{ViewGlos.selecionado.fkConv.codigo}" />
+
+                            <h:outputText value="Convenio" />
+                            <h:outputText value="#{ViewGlos.selecionado.fkConv.descricao}" />
+
+                            <h:outputText value="Não conformidade" />
+                            <h:outputText value="#{ViewGlos.selecionado.fkNcon.nconNmNmncon}" />
+
+                            <h:outputText value="Status" />
+                            <h:outputText value="#{ViewGlos.selecionado.fkStat.statusNmDescricao}" />
+
+                            <h:outputText value="Obs" />
+                            <h:outputText value="#{ViewGlos.selecionado.glosObObsglos}" />
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+        </div>        
     </ui:define>
-    
+
 </ui:composition>

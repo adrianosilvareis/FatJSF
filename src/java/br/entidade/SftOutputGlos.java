@@ -34,7 +34,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "sft_output_glos")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SftOutputGlos.findAll", query = "SELECT s FROM SftOutputGlos s"),
+    @NamedQuery(name = "SftOutputGlos.findAll", query = "SELECT s FROM SftOutputGlos s ORDER BY s.glosDtRegis"),
+    @NamedQuery(name = "SftOutputGlos.findMaxYear", query = "SELECT MAX(FUNCTION('Year', s.glosDtRegis)) FROM SftOutputGlos s"),
+    @NamedQuery(name = "SftOutputGlos.findMaxMonth", query = "SELECT MAX(FUNCTION('Month', s.glosDtRegis)) FROM SftOutputGlos s WHERE FUNCTION('Year', s.glosDtRegis) like :ano"),
+    @NamedQuery(name = "SftOutputGlos.findAtual", query = "SELECT s FROM SftOutputGlos s WHERE FUNCTION('Year', s.glosDtRegis) like :ano AND FUNCTION('Month', s.glosDtRegis) like :mes ORDER BY s.glosDtRegis DESC"),
+    @NamedQuery(name = "SftOutputGlos.findPeriodo", query = "SELECT s FROM SftOutputGlos s WHERE s.glosDtRegis >= :inicial AND s.glosDtRegis <= :fim ORDER BY s.glosDtRegis DESC"),
     @NamedQuery(name = "SftOutputGlos.findByGlosIdIdglos", query = "SELECT s FROM SftOutputGlos s WHERE s.glosIdIdglos = :glosIdIdglos"),
     @NamedQuery(name = "SftOutputGlos.findByGlosDtRegis", query = "SELECT s FROM SftOutputGlos s WHERE s.glosDtRegis = :glosDtRegis"),
     @NamedQuery(name = "SftOutputGlos.findByGlosObObsglos", query = "SELECT s FROM SftOutputGlos s WHERE s.glosObObsglos = :glosObObsglos"),

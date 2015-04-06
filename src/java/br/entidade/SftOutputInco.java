@@ -33,10 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "sft_output_inco")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SftOutputInco.findAll", query = "SELECT s FROM SftOutputInco s"),
+    @NamedQuery(name = "SftOutputInco.findAll", query = "SELECT s FROM SftOutputInco s ORDER BY s.incoDtRegis DESC"),
     @NamedQuery(name = "SftOutputInco.findMaxYear", query = "SELECT MAX(FUNCTION('Year', s.incoDtRegis)) FROM SftOutputInco s"),
     @NamedQuery(name = "SftOutputInco.findMaxMonth", query = "SELECT MAX(FUNCTION('Month', s.incoDtRegis)) FROM SftOutputInco s WHERE FUNCTION('Year', s.incoDtRegis) like :ano"),
-    @NamedQuery(name = "SftOutputInco.findAtual", query = "SELECT s FROM SftOutputInco s WHERE FUNCTION('Year', s.incoDtRegis) like :ano AND FUNCTION('Month', s.incoDtRegis) like :mes"),
+    @NamedQuery(name = "SftOutputInco.findAtual", query = "SELECT s FROM SftOutputInco s WHERE FUNCTION('Year', s.incoDtRegis) like :ano AND FUNCTION('Month', s.incoDtRegis) like :mes ORDER BY s.incoDtRegis DESC"),
     @NamedQuery(name = "SftOutputInco.findPeriodo", query = "SELECT s FROM SftOutputInco s WHERE s.incoDtRegis >= :inicial AND s.incoDtRegis <= :fim ORDER BY s.incoDtRegis DESC"),
     @NamedQuery(name = "SftOutputInco.findByIncoIdIdinco", query = "SELECT s FROM SftOutputInco s WHERE s.incoIdIdinco = :incoIdIdinco"),
     @NamedQuery(name = "SftOutputInco.findByIncoDtRegis", query = "SELECT s FROM SftOutputInco s WHERE s.incoDtRegis = :incoDtRegis"),
