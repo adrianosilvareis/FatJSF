@@ -56,6 +56,11 @@ public class SftCtrlHistorico implements Serializable {
         @JoinColumn(name = "idinco", referencedColumnName = "inco_id_idinco")})
     @ManyToMany
     private List<SftOutputInco> sftOutputIncoList;
+    @JoinTable(name = "sft_part_has_historico", joinColumns = {
+        @JoinColumn(name = "idhist", referencedColumnName = "hist_id_idhist")}, inverseJoinColumns = {
+        @JoinColumn(name = "idpart", referencedColumnName = "part_id_idpart")})
+    @ManyToMany
+    private List<SftOutputPart> sftOutputPartList;
     @ManyToMany(mappedBy = "sftCtrlHistoricoList")
     private List<SftOutputGlos> sftOutputGlosList;
     @JoinColumn(name = "fk_acao", referencedColumnName = "acao_id_idacao")
@@ -68,9 +73,7 @@ public class SftCtrlHistorico implements Serializable {
     private List<SftOutputDesc> sftOutputDescList;
     @OneToMany(mappedBy = "historico")
     private List<SftOutputCort> sftOutputCortList;
-    @OneToMany(mappedBy = "historico")
-    private List<SftOutputPart> sftOutputPartList;
-
+    
     public SftCtrlHistorico() {
     }
 

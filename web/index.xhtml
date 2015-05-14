@@ -206,6 +206,89 @@
                 </p:dialog>
             </h:form>
         </div>        
+        
+        <div id="particular">
+
+            <h:form id="form_part">
+
+                <p:dataTable value="#{ViewPart.list}" var="i" paginator="true" rows="10" rowsPerPageTemplate="5,10,15" rowIndexVar="teste">
+                    <f:facet name="header" >
+                        Os Não Pagas
+                    </f:facet>
+
+                    <p:column style="width:32px;text-align: center">
+                        #{teste+1}
+                    </p:column>
+
+                    <p:column headerText="OS" filterBy="#{i.partOsOspart}" filterMatchMode="contains">
+                        <h:outputLabel value="#{i.partOsOspart}" />
+                    </p:column>
+
+                    <p:column headerText="Cod Unidade" filterBy="#{i.fkUnid.unidCodCodigo}" filterMatchMode="exact">
+                        <h:outputLabel value="#{i.fkUnid.unidNmNmunid}" />
+                    </p:column>
+
+                    <p:column headerText="Atendente" filterBy="#{i.fkAten.atenUsUsaten}" filterMatchMode="contains">
+                        <h:outputLabel value="#{i.fkAten.atenUsUsaten}" />
+                    </p:column>
+                    
+                    <p:column headerText="Paciente" filterBy="#{i.partNmPaciente}" filterMatchMode="contains">
+                        <h:outputLabel value="#{i.partNmPaciente}" />
+                    </p:column>
+                    
+                    <p:column headerText="Data">
+                        <h:outputText value="#{i.sftCtrlHistoricoList.get(0).getHistDtRegis()}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton update=":form_part:partDetail" oncomplete="PF('partDialog').show()" icon="ui-icon-search" title="View">
+                            <f:setPropertyActionListener value="#{i}" target="#{ViewPart.selecionado}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog header="Não Paga Info" widgetVar="partDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel id="partDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty ViewPart.selecionado}" columnClasses="label,value">
+
+                            <h:outputText value="Id:" />
+                            <h:outputText value="#{ViewPart.selecionado.partIdIdpart}" />
+
+                            <h:outputText value="OS" />
+                            <h:outputText value="#{ViewPart.selecionado.partOsOspart}" />
+                            
+                            <h:outputText value="Nome Paciente" />
+                            <h:outputText value="#{ViewPart.selecionado.partNmPaciente}" />
+                            
+                            <h:outputText value="Atendente" />
+                            <h:outputText value="#{ViewPart.selecionado.fkAten.atenUsUsaten}" />
+                            
+                            <h:outputText value="Valor Total" />
+                            <h:outputText value="#{ViewPart.selecionado.partVlTotal}" />
+                           
+                            <h:outputText style="color: background;" value="Valor Desconto" />
+                            <h:outputText style="color: background;" value="#{ViewPart.selecionado.partVlTotal*ViewPart.selecionado.partVlDesc/100}" />
+                           
+                            <h:outputText style="color: background;" value="% Desconto" />
+                            <h:outputText style="color: background;" value="#{ViewPart.selecionado.partVlDesc} %" />
+                           
+                            <h:outputText style="color: background;" value="Valor Liquido" />
+                            <h:outputText style="color: background;" value="#{ViewPart.selecionado.partVlLiquido}" />
+                           
+                            <h:outputText style="color: green;" value="Valor Pago" />
+                            <h:outputText style="color: green;" value="#{ViewPart.selecionado.partVlPago}" />
+                           
+                            <h:outputText style="color: red;" value="Valor Debito" />
+                            <h:outputText style="color: red; font-weight: bold" value="#{ViewPart.selecionado.partVlDebito}" />
+                           
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </h:form>
+        </div>        
+
     </ui:define>
 
 </ui:composition>

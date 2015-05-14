@@ -5,19 +5,24 @@
  */
 package br.entidade;
 
+import static br.entidade.SftOutputCort_.historico;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -67,9 +72,9 @@ public class SftOutputPart implements Serializable {
     @JoinColumn(name = "fk_unid", referencedColumnName = "unid_id_idunid")
     @ManyToOne
     private SftInputUnid fkUnid;
-    @JoinColumn(name = "historico", referencedColumnName = "hist_id_idhist")
-    @ManyToOne
-    private SftCtrlHistorico historico;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "sftOutputPartList")
+    private List<SftCtrlHistorico> sftCtrlHistoricoList;
+    
 
     public SftOutputPart() {
     }
@@ -166,12 +171,13 @@ public class SftOutputPart implements Serializable {
         this.fkUnid = fkUnid;
     }
 
-    public SftCtrlHistorico getHistorico() {
-        return historico;
+    @XmlTransient
+    public List<SftCtrlHistorico> getSftCtrlHistoricoList() {
+        return sftCtrlHistoricoList;
     }
 
-    public void setHistorico(SftCtrlHistorico historico) {
-        this.historico = historico;
+    public void setSftCtrlHistoricoList(List<SftCtrlHistorico> sftCtrlHistoricoList) {
+        this.sftCtrlHistoricoList = sftCtrlHistoricoList;
     }
 
     @Override

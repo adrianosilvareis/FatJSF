@@ -3,6 +3,7 @@ package br.entidade.business;
 import br.conexao.CriaConexao;
 import br.entidade.SftOutputGlos;
 import br.entidade.SftOutputInco;
+import br.entidade.SftOutputPart;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +45,9 @@ public class Business {
         }
         if (type == SftOutputGlos.class) {
             return em.createNamedQuery("SftOutputGlos.findAll", type).getResultList();
+        }
+        if (type == SftOutputPart.class) {
+            return em.createNamedQuery("SftOutputPart.findAll", type).getResultList();
         }
         return null;
     }
