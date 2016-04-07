@@ -5,7 +5,6 @@
  */
 package br.entidade;
 
-import static br.entidade.SftOutputCort_.historico;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
